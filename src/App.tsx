@@ -28,12 +28,13 @@ import { Menu } from "./components";
 import { useFirebaseLogin } from "./hooks";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_apiKey,
-  authDomain: process.env.REACT_APP_authDomain,
-  projectId: process.env.REACT_APP_projectId,
-  storageBucket: process.env.REACT_APP_storageBucket,
-  messagingSenderId: process.env.REACT_APP_messagingSenderId,
-  appId: process.env.REACT_APP_appId,
+  apiKey: "AIzaSyC5nvukw5s-d99p9vez41QGI4g4ANJNpXc",
+  authDomain: "cours-ynov-175ee.firebaseapp.com",
+  databaseURL: "https://cours-ynov-175ee-default-rtdb.firebaseio.com",
+  projectId: "cours-ynov-175ee",
+  storageBucket: "cours-ynov-175ee.appspot.com",
+  messagingSenderId: "270306187044",
+  appId: "1:270306187044:web:42a5bfb711095d1ec945b1",
 };
 
 const App: React.FC = () => {

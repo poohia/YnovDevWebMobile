@@ -26,14 +26,14 @@ import { Top } from "../../../types";
 import { shareSocialOutline } from "ionicons/icons";
 
 type ViewTopProps = RouteComponentProps<{
-  title: string;
+  id: string;
 }>;
 
 const ViewTop: React.FC<ViewTopProps> = ({ match }) => {
   const {
-    params: { title },
+    params: { id },
   } = match;
-  const { getLists, findTopByTitle } = useTopList();
+  const { getLists, findTopById } = useTopList();
   const [top, setTop] = useState<Top | undefined>();
 
   const openLink = (link?: string) => {
@@ -46,12 +46,12 @@ const ViewTop: React.FC<ViewTopProps> = ({ match }) => {
   };
 
   useEffect(() => {
-    getLists(); //.then(() => setTop(findTopByTitle(title)));
-  }, [getLists]);
-
-  useEffect(() => {
-    setTop(findTopByTitle(title));
-  }, [title, findTopByTitle]);
+    findTopById(id).then((docSnap) => {
+      if (docSnap.exists()) {
+        setTop(docSnap.data() as Top);
+      }
+    });
+  }, []);
 
   if (!top) {
     return (

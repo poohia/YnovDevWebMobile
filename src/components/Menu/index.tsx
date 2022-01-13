@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonContent,
   IonIcon,
   IonItem,
@@ -28,6 +29,7 @@ import {
   warningSharp,
 } from "ionicons/icons";
 import "./Menu.css";
+import { useFirebaseLogin } from "../../hooks";
 
 interface AppPage {
   url: string;
@@ -53,6 +55,7 @@ const appPages: AppPage[] = [
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  const { loggout } = useFirebaseLogin();
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -60,6 +63,14 @@ const Menu: React.FC = () => {
         <IonList id="inbox-list">
           <IonListHeader>Liste des top</IonListHeader>
           <IonNote>jazoulay@joazco.com</IonNote>
+          <IonButton
+            color="danger"
+            onClick={() => {
+              loggout();
+            }}
+          >
+            Déconnexion
+          </IonButton>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>

@@ -52,7 +52,7 @@ const Home = () => {
         <IonList>
           <IonListHeader>Votre liste de top</IonListHeader>
           {list.map((l, i) => {
-            const { title, items } = l;
+            const { title, items, id } = l;
             const img = findFirstImgFromItems(items);
             return (
               <IonItem
@@ -60,7 +60,7 @@ const Home = () => {
                 className={`${i % 2 === 0 ? "even" : "odd"} ${
                   i + 1 === list.length ? "last" : ""
                 }`}
-                routerLink={`/view/${title}`}
+                routerLink={`/view/${id}`}
               >
                 {img && (
                   <IonAvatar>

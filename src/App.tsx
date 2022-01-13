@@ -3,6 +3,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { useEffect } from "react";
+import { App as AppCapacitor, URLOpenListenerEvent } from "@capacitor/app";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -39,11 +40,22 @@ const firebaseConfig = {
 
 const App: React.FC = () => {
   const { user, checkAuth } = useFirebaseLogin();
+
+  useEffect(() => {
+    AppCapacitor.addListener("appUrlOpen", (event: URLOpenListenerEvent) => {
+      // Example url: https://cours-ynov-175ee.web.app/123456
+      // slug = /123456
+      const slug = event.url.split(".app").pop();
+      alert(slug?.replace("/", ""));
+      // If no match, do nothing - let regular routing
+      // logic take over
+    });
+  }, []);
+
   useEffect(() => {
     initializeApp(firebaseConfig);
     checkAuth();
   }, [checkAuth]);
-  console.log(`IONIC::::`, user);
   return (
     <IonApp>
       <IonReactRouter>
@@ -53,10 +65,12 @@ const App: React.FC = () => {
             <Route
               path="/"
               exact
-              render={(_props) => (user ? <Home /> : <Connection />)}
+              render={(_props) =>
+                user ? <Home /> : <Connection user={user} />
+              }
             />
             <Route path="/create" exact component={CreateTop} />
-            <Route path="/view/:title" exact component={ViewTop} />
+            <Route path="/view/:id" exact component={ViewTop} />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

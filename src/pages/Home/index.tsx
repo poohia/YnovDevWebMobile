@@ -23,7 +23,7 @@ import "./home.css";
 import { arrowForward } from "ionicons/icons";
 
 const findFirstImgFromItems = (items: TopItem[]): string | undefined =>
-  items.find((item) => item.img !== undefined)?.img;
+  items ? items.find((item) => item.img !== undefined)?.img : undefined;
 
 const Home = () => {
   const { list, init } = useTopList();
